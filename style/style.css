@@ -1,0 +1,36 @@
+@font-face {
+    font-family: "Aromia";
+    src: url(./fonts/AromiaScript-Black.woff);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Aromia";
+    color: white;
+}
+
+body {
+    background-color: blueviolet;
+}
+
+header {
+    background-color: rgb(68, 7, 124);
+    margin-bottom: 20px;
+    height: 70px;
+    padding: 1em;
+}
+
+#top-container {
+    font-size: 25px;
+    text-shadow: black 0.2em 0.2em 0.5em;
+    line-height: 70px;
+}
+
+#game-container {
+    width: 1120px;
+    height: 520px;
+    background-color: rgb(68, 7, 124);
+    margin: 0 auto;
+    border-radius: 1em;
+}
