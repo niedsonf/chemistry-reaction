@@ -3,6 +3,11 @@
     src: url(./fonts/AromiaScript-Black.woff);
 }
 
+@font-face{
+    font-family: "Forced Square";
+    src: url(./fonts/FORCED-SQUARE.woff);
+}
+
 * {
     margin: 0;
     padding: 0;

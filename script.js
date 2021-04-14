@@ -85,41 +85,9 @@ class GameScene extends Phaser.Scene {
             naoh: false,
             cacl2: false
         };
-    
-        function selecting(element, x, y, state){
-
-            var s = state;
-
-            if(!s && !slot[1] || !s && !slot[0]){
-                switch(slot[0]){
-                    case false:
-                        element.setPosition(posx[0], posy);
-                        s = true;
-                        slot[0] = true;
-                        break;
-                    case true:
-                        element.setPosition(posx[1], posy);
-                        s = true;
-                        slot[1] = true;
-                        break;
-                }
-            } else {
-                switch(element.x){
-                    case 786:
-                        element.setPosition(x, y);
-                        s = false;  
-                        slot[0] = false;
-                        break;
-                    case 951:
-                        element.setPosition(x, y);
-                        s = false;  
-                        slot[1] = false;
-                        break;
-                }
-            }
-        return s;
-        }
         
+        this.add.image(0, 0, 'bg').setOrigin(0);
+
         this.input.on('gameobjectover', function (pointer, gameObject) {
             gameObject.alpha = 0.8;
             if(popupisOpen){popup.alpha = 1}
@@ -129,58 +97,45 @@ class GameScene extends Phaser.Scene {
             gameObject.alpha = 1;
         });
 
-        this.add.image(0, 0, 'bg').setOrigin(0);
+        var text = this.add.text(600, 300, 'SELECIONE DOIS\n    REAGENTES', {fontFamily: 'Forced Square', fontSize: 20});
     
-        // --------------------- AGNO3 --------------------- 
+        /// --- ADD SPRITES --- ///
         var agno3 = this.add.sprite(25, 25, 'agno3').setOrigin(0).setInteractive();
-    
         agno3.on('pointerup', function (pointer){
             reactaux.agno3 = selecting(agno3, 25, 25, reactaux.agno3);
         });
     
-        // --------------------- FECL3 --------------------- 
         var fecl3 = this.add.sprite(178, 25, 'fecl3').setOrigin(0).setInteractive();
-
         fecl3.on('pointerup', function (pointer){
             reactaux.fecl3 = selecting(fecl3, 178, 25, reactaux.fecl3);
         });
     
-        // --------------------- CUSO4 --------------------- 
         var cuso4 = this.add.sprite(331, 25, 'cuso4').setOrigin(0).setInteractive();
-  
         cuso4.on('pointerup', function (pointer){
             reactaux.cuso4 = selecting(cuso4, 331, 25, reactaux.cuso4);
         });
         
-        // --------------------- NA2CO3 ---------------------
         var na2co3 = this.add.sprite(25, 256, 'na2co3').setOrigin(0).setInteractive();
-    
         na2co3.on('pointerup', function (pointer){
             reactaux.na2co3 = selecting(na2co3, 25, 256, reactaux.na2co3);
         });
     
-        // --------------------- K2SO4 ---------------------
         var k2so4 = this.add.sprite(178, 256, 'k2so4').setOrigin(0).setInteractive();
-
         k2so4.on('pointerup', function (pointer){
             reactaux.k2so4 = selecting(k2so4, 178, 256, reactaux.k2so4);
         });
     
-        // --------------------- NAOH ---------------------
         var naoh = this.add.sprite(331, 256, 'naoh').setOrigin(0).setInteractive();
-
         naoh.on('pointerup', function (pointer){
             reactaux.naoh = selecting(naoh, 331, 256, reactaux.naoh);
         });
     
-        // --------------------- CACL2 ---------------------
         var cacl2 = this.add.sprite(484, 256, 'cacl2').setOrigin(0).setInteractive();
- 
         cacl2.on('pointerup', function (pointer){
             reactaux.cacl2 = selecting(cacl2, 484, 256, reactaux.cacl2);
         });
-    
-        // --------------------- REAÇÕES POPUP ---------------------
+
+        /// --- REACT LIST --- ///
         var reacoes = this.add.sprite(635, 49, 'reacoes').setInteractive();
     
         reacoes.on('pointerup', function(pointer){
@@ -194,7 +149,7 @@ class GameScene extends Phaser.Scene {
             });
         }, this);
 
-        // --------------------- PUSH BALANCE SCENE ---------------------
+        /// --- PUSH BALANCE SCENE --- ///
         var redcheck = this.add.sprite(1000, 256, 'redcheck').setOrigin(0).setInteractive();
 
         redcheck.on('pointerup', function (pointer){
@@ -229,13 +184,11 @@ class GameScene extends Phaser.Scene {
                         break;                         
                 }
             }
-            
-            console.log(toNext.toString());
-            toNext.splice(0, toNext.length);
-            console.log(toNext);
 
+            this.scene.start('BalanceScene', toNext);
         }, this);
 
+        /// --- FUNCTIONS --- ///
         function defaultConfig(){
             agno3.setPosition(25, 25);
             fecl3.setPosition(178, 25);
@@ -248,6 +201,42 @@ class GameScene extends Phaser.Scene {
             for(let i in reactaux){
                 reactaux[i] = false;
             }
+            text.setText('REAÇÃO INVÁLIDA');
+            setTimeout(() => text.setText('SELECIONE DOIS\n    REAGENTES'), 1000);
+        }
+
+        function selecting(element, x, y, state){
+
+            var s = state;
+
+            if(!s && !slot[1] || !s && !slot[0]){
+                switch(slot[0]){
+                    case false:
+                        element.setPosition(posx[0], posy);
+                        s = true;
+                        slot[0] = true;
+                        break;
+                    case true:
+                        element.setPosition(posx[1], posy);
+                        s = true;
+                        slot[1] = true;
+                        break;
+                }
+            } else {
+                switch(element.x){
+                    case 786:
+                        element.setPosition(x, y);
+                        s = false;  
+                        slot[0] = false;
+                        break;
+                    case 951:
+                        element.setPosition(x, y);
+                        s = false;  
+                        slot[1] = false;
+                        break;
+                }
+            }
+        return s;
         }
     }
 }
@@ -259,7 +248,7 @@ class BalanceScene extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image('bgbalance', 'assets/balancebg.jpg');
+        this.load.image('balancebg', 'assets/balancebg.jpg');
         this.load.image('agno3', 'assets/agno3.png');
         this.load.image('cacl2', 'assets/cacl2.png');
         this.load.image('cuso4', 'assets/cuso4.png');
@@ -271,8 +260,13 @@ class BalanceScene extends Phaser.Scene {
     }
 
     create(data){
+
+        const posx = [786, 951], posy = 27;
         var balancebg = this.add.image(0, 0, 'balancebg').setOrigin(0);
-        console.log(data);
+    
+        this.add.image(posx[0], posy, data[0]).setOrigin(0);
+        this.add.image(posx[1], posy, data[1]).setOrigin(0);
+
     }
 
 }
