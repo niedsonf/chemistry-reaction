@@ -71,11 +71,9 @@ class GameScene extends Phaser.Scene {
     }   
 
     create (){
- 
         const posx = [786, 951], posy = 27;
         var popup, popupisOpen = false;
         var slot = [false, false];
-    
         var reactaux = {
             agno3: false,
             fecl3: false,
@@ -97,50 +95,69 @@ class GameScene extends Phaser.Scene {
             gameObject.alpha = 1;
         });
 
-        var text = this.add.text(600, 300, 'SELECIONE DOIS\n    REAGENTES', {fontFamily: 'Forced Square', fontSize: 20});
+        var text = this.add.text(600, 300, 'SELECIONE DOIS\n    REAGENTES', {
+            fontFamily: 'Forced Square',
+            fontSize: 20
+        });
     
         /// --- ADD SPRITES --- ///
-        var agno3 = this.add.sprite(25, 25, 'agno3').setOrigin(0).setInteractive();
-        agno3.on('pointerup', function (pointer){
-            reactaux.agno3 = selecting(agno3, 25, 25, reactaux.agno3);
+        var agno3 = this.add.sprite(25, 25, 'agno3')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                reactaux.agno3 = selecting(agno3, 25, 25, reactaux.agno3);
         });
     
-        var fecl3 = this.add.sprite(178, 25, 'fecl3').setOrigin(0).setInteractive();
-        fecl3.on('pointerup', function (pointer){
-            reactaux.fecl3 = selecting(fecl3, 178, 25, reactaux.fecl3);
+        var fecl3 = this.add.sprite(178, 25, 'fecl3')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                reactaux.fecl3 = selecting(fecl3, 178, 25, reactaux.fecl3);
         });
     
-        var cuso4 = this.add.sprite(331, 25, 'cuso4').setOrigin(0).setInteractive();
-        cuso4.on('pointerup', function (pointer){
-            reactaux.cuso4 = selecting(cuso4, 331, 25, reactaux.cuso4);
+        var cuso4 = this.add.sprite(331, 25, 'cuso4')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                reactaux.cuso4 = selecting(cuso4, 331, 25, reactaux.cuso4);
         });
         
-        var na2co3 = this.add.sprite(25, 256, 'na2co3').setOrigin(0).setInteractive();
-        na2co3.on('pointerup', function (pointer){
-            reactaux.na2co3 = selecting(na2co3, 25, 256, reactaux.na2co3);
+        var na2co3 = this.add.sprite(25, 256, 'na2co3')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                reactaux.na2co3 = selecting(na2co3, 25, 256, reactaux.na2co3);
         });
     
-        var k2so4 = this.add.sprite(178, 256, 'k2so4').setOrigin(0).setInteractive();
-        k2so4.on('pointerup', function (pointer){
-            reactaux.k2so4 = selecting(k2so4, 178, 256, reactaux.k2so4);
+        var k2so4 = this.add.sprite(178, 256, 'k2so4')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                reactaux.k2so4 = selecting(k2so4, 178, 256, reactaux.k2so4);
         });
     
-        var naoh = this.add.sprite(331, 256, 'naoh').setOrigin(0).setInteractive();
-        naoh.on('pointerup', function (pointer){
-            reactaux.naoh = selecting(naoh, 331, 256, reactaux.naoh);
+        var naoh = this.add.sprite(331, 256, 'naoh')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                reactaux.naoh = selecting(naoh, 331, 256, reactaux.naoh);
         });
     
-        var cacl2 = this.add.sprite(484, 256, 'cacl2').setOrigin(0).setInteractive();
-        cacl2.on('pointerup', function (pointer){
-            reactaux.cacl2 = selecting(cacl2, 484, 256, reactaux.cacl2);
+        var cacl2 = this.add.sprite(484, 256, 'cacl2')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                reactaux.cacl2 = selecting(cacl2, 484, 256, reactaux.cacl2);
         });
 
         /// --- REACT LIST --- ///
-        var reacoes = this.add.sprite(635, 49, 'reacoes').setInteractive();
-    
-        reacoes.on('pointerup', function(pointer){
+        var reacoes = this.add.sprite(635, 49, 'reacoes')
+            .setInteractive()
+            .on('pointerup', function(pointer){
             if(!popupisOpen){
-                popup = this.add.image(25, 30, 'list').setInteractive().setOrigin(0);
+                popup = this.add.image(25, 30, 'list')
+                    .setInteractive()
+                    .setOrigin(0);
                 popupisOpen = true;
             }
             popup.on('pointerup', function (pointer){
@@ -150,50 +167,58 @@ class GameScene extends Phaser.Scene {
         }, this);
 
         /// --- PUSH BALANCE SCENE --- ///
-        var redcheck = this.add.sprite(1000, 256, 'redcheck').setOrigin(0).setInteractive();
-
-        redcheck.on('pointerup', function (pointer){
-
-            let toNext = [];
-
-            if(slot[0] && slot[1]){
-                for(let i in reactaux){
-                    if(reactaux[i] == true){toNext.push(i)}
-                }
-                switch(true){
+        var redcheck = this.add.sprite(1000, 256, 'redcheck')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                var toNext = [];
+                if(slot[0] && slot[1]){
+                    for(let i in reactaux){
+                        if(reactaux[i] == true){toNext.push(i)}
+                    }
+                    switch(true){
                     default:
                         defaultConfig();
                         break;
-                    case toNext.includes('agno3' && 'cacl2'):
+                    case toNext.includes('agno3', 'cacl2'):
+                        toNext.push('r1');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('agno3' && 'na2co3'):
+                    case toNext.includes('agno3', 'na2co3'):
+                        toNext.push('r2');
                         this.scene.start('BalanceScene', toNext);
                         break;    
-                    case toNext.includes('agno3' && 'naoh'):
+                    case toNext.includes('agno3', 'naoh'):
+                        toNext.push('r3');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('agno3' && 'k2so4'):
+                    case toNext.includes('agno3', 'k2so4'):
+                        toNext.push('r4');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('fecl3' && 'naoh'):
+                    case toNext.includes('fecl3', 'naoh'):
+                        toNext.push('r5');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('fecl3' && 'na2co3'):
+                    case toNext.includes('fecl3', 'na2co3'):
+                        toNext.push('r6');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('cacl2' && 'na2co3'):
+                    case toNext.includes('cacl2', 'na2co3'):
+                        toNext.push('r7');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('cuso4' && 'naoh'):
+                    case toNext.includes('cuso4', 'naoh'):
+                        toNext.push('r8');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('cuso4' && 'na2co3'):
+                    case toNext.includes('cuso4', 'na2co3'):
+                        toNext.push('r9');
                         this.scene.start('BalanceScene', toNext);
                         break;                         
+                    }
                 }
-            }
-        }, this);
+            }, this);
 
         /// --- FUNCTIONS --- ///
         function defaultConfig(){
@@ -213,9 +238,7 @@ class GameScene extends Phaser.Scene {
         }
 
         function selecting(element, x, y, state){
-
             var s = state;
-
             if(!s && !slot[1] || !s && !slot[0]){
                 switch(slot[0]){
                     case false:
@@ -283,26 +306,31 @@ class BalanceScene extends Phaser.Scene {
     
         this.add.image(posx[0], posy, data[0]).setOrigin(0);
         this.add.image(posx[1], posy, data[1]).setOrigin(0);
+        var eq = this.add.image(550, 400, data[2]);
 
-        var printText = this.add.rexBBCodeText(400, 300, 'abc', {
-            color: 'yellow',
-            fontSize: '24px',
-            fixedWidth: 85,
-            fixedHeight: 85,
-            backgroundColor: '#333333',
-            valign: 'center'
-        })
-            .setOrigin(0)
-            .setInteractive()
+        var coef1 = generateInput(200, 300, this)
             .on('pointerdown', function () {
                 var config = {
+                    type: 'number',
                     onTextChanged: function (textObject, text) {
                         textObject.text = text;
-                    },
-                    selectAll: true
-                }
-                this.plugins.get('rextexteditplugin').edit(printText, config);
-            }, this);
+                    }
+                };               
+                this.plugins.get('rextexteditplugin').edit(coef1, config);
+            }, this); 
+
+        function generateInput(x, y, scene){
+            let gInput = scene.add.rexBBCodeText(x, y, '0', {
+                color: 'blueviolet',
+                fontSize: '27px',
+                fixedWidth: 35,
+                fixedHeight: 35,
+                backgroundColor: '#333333'
+            })
+            .setOrigin(0)
+            .setInteractive() 
+            return gInput;
+        }    
     }
 }
 

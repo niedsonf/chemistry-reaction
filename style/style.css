@@ -23,7 +23,6 @@ header {
     background-color: rgb(68, 7, 124);
     margin-bottom: 20px;
     height: 70px;
-    padding: 1em;
     font-size: 25px;
     text-shadow: black 0.2em 0.2em 0.5em;
     line-height: 70px;
@@ -34,5 +33,5 @@ header {
     height: 520px;
     background-color: rgb(68, 7, 124);
     margin: 0 auto;
-    border-radius: 1em;
+    border-radius: 0.8em;
 }
