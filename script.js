@@ -165,27 +165,34 @@ class GameScene extends Phaser.Scene {
                         defaultConfig();
                         break;
                     case toNext.includes('agno3' && 'cacl2'):
+                        this.scene.start('BalanceScene', toNext);
                         break;
                     case toNext.includes('agno3' && 'na2co3'):
+                        this.scene.start('BalanceScene', toNext);
                         break;    
                     case toNext.includes('agno3' && 'naoh'):
+                        this.scene.start('BalanceScene', toNext);
                         break;
                     case toNext.includes('agno3' && 'k2so4'):
+                        this.scene.start('BalanceScene', toNext);
                         break;
                     case toNext.includes('fecl3' && 'naoh'):
+                        this.scene.start('BalanceScene', toNext);
                         break;
                     case toNext.includes('fecl3' && 'na2co3'):
+                        this.scene.start('BalanceScene', toNext);
                         break;
                     case toNext.includes('cacl2' && 'na2co3'):
+                        this.scene.start('BalanceScene', toNext);
                         break;
                     case toNext.includes('cuso4' && 'naoh'):
+                        this.scene.start('BalanceScene', toNext);
                         break;
                     case toNext.includes('cuso4' && 'na2co3'):
+                        this.scene.start('BalanceScene', toNext);
                         break;                         
                 }
             }
-
-            this.scene.start('BalanceScene', toNext);
         }, this);
 
         /// --- FUNCTIONS --- ///
@@ -257,22 +264,51 @@ class BalanceScene extends Phaser.Scene {
         this.load.image('na2co3', 'assets/na2co3.png');
         this.load.image('naoh', 'assets/naoh.png');
         this.load.image('redcheck', 'assets/redcheck.png');
+        this.load.image('r1', 'assets/r1.png');
+        this.load.image('r2', 'assets/r2.png');
+        this.load.image('r3', 'assets/r3.png');
+        this.load.image('r4', 'assets/r4.png');
+        this.load.image('r5', 'assets/r5.png');
+        this.load.image('r6', 'assets/r6.png');
+        this.load.image('r7', 'assets/r7.png');
+        this.load.image('r8', 'assets/r8.png');
+        this.load.image('r9', 'assets/r9.png');
+        this.load.plugin('rextexteditplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rextexteditplugin.min.js', true);
+        this.load.plugin('rexbbcodetextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexbbcodetextplugin.min.js', true);
     }
 
     create(data){
-
         const posx = [786, 951], posy = 27;
         var balancebg = this.add.image(0, 0, 'balancebg').setOrigin(0);
     
         this.add.image(posx[0], posy, data[0]).setOrigin(0);
         this.add.image(posx[1], posy, data[1]).setOrigin(0);
 
+        var printText = this.add.rexBBCodeText(400, 300, 'abc', {
+            color: 'yellow',
+            fontSize: '24px',
+            fixedWidth: 85,
+            fixedHeight: 85,
+            backgroundColor: '#333333',
+            valign: 'center'
+        })
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerdown', function () {
+                var config = {
+                    onTextChanged: function (textObject, text) {
+                        textObject.text = text;
+                    },
+                    selectAll: true
+                }
+                this.plugins.get('rextexteditplugin').edit(printText, config);
+            }, this);
     }
-
 }
 
 var config = {
     parent: 'game-container',
+    dom: {createContainer: true},
     type: Phaser.AUTO,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: 1100,

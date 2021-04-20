@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "phaser": "^3.52.0"
+    "phaser": "^3.52.0",
+    "phaser3-rex-plugins": "^1.1.44"
   }
 }
