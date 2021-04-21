@@ -296,6 +296,7 @@ class BalanceScene extends Phaser.Scene {
         this.load.image('r7', 'assets/r7.png');
         this.load.image('r8', 'assets/r8.png');
         this.load.image('r9', 'assets/r9.png');
+        this.load.image('inputbox', 'assets/inputbox.png');
         this.load.plugin('rextexteditplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rextexteditplugin.min.js', true);
         this.load.plugin('rexbbcodetextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexbbcodetextplugin.min.js', true);
     }
@@ -307,25 +308,46 @@ class BalanceScene extends Phaser.Scene {
         this.add.image(posx[0], posy, data[0]).setOrigin(0);
         this.add.image(posx[1], posy, data[1]).setOrigin(0);
         var eq = this.add.image(550, 400, data[2]);
+        var inputText = this.add.image(50, 50, 'inputbox').setOrigin(0);
 
-        var coef1 = generateInput(200, 300, this)
+        var coefV = generateInput(110, 65, this)
             .on('pointerdown', function () {
-                var config = {
-                    type: 'number',
-                    onTextChanged: function (textObject, text) {
-                        textObject.text = text;
-                    }
-                };               
-                this.plugins.get('rextexteditplugin').edit(coef1, config);
+                this.plugins.get('rextexteditplugin').edit(coefV, config);
             }, this); 
+
+        var coefW = generateInput(110, 133, this)
+            .on('pointerdown', function () {
+                this.plugins.get('rextexteditplugin').edit(coefW, config);
+            }, this);
+            
+        var coefX = generateInput(225, 65, this)
+            .on('pointerdown', function () {
+                this.plugins.get('rextexteditplugin').edit(coefX, config);
+            }, this);
+
+        var coefZ = generateInput(225, 133, this)
+            .on('pointerdown', function () {
+                this.plugins.get('rextexteditplugin').edit(coefZ, config);
+            }, this);
+
+
+        var config = {
+            type: 'number',
+            onTextChanged: function (textObject, text) {
+                textObject.text = text;
+            }
+        }; 
 
         function generateInput(x, y, scene){
             let gInput = scene.add.rexBBCodeText(x, y, '0', {
                 color: 'blueviolet',
-                fontSize: '27px',
-                fixedWidth: 35,
+                fontSize: '35px',
+                fontFamily: 'Forced Square',
+                fixedWidth: 55,
                 fixedHeight: 35,
-                backgroundColor: '#333333'
+                backgroundColor: '#333333',
+                align: 'center'
+                
             })
             .setOrigin(0)
             .setInteractive() 
