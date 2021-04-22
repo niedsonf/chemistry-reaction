@@ -1,14 +1,76 @@
-class MenuScene extends Phaser.Scene {
+class LoadingScene extends Phaser.Scene {
 
     constructor(){
-        super('MenuScene');
+        super("LoadingScene");
     }
 
-    preload(){
+    preload() {
+        this.load.image('voltar', 'assets/voltar.png');
         this.load.image('menu', 'assets/menuscreen.jpg');
         this.load.image('jogar', 'assets/jogar.png');
         this.load.image('creditos', 'assets/creditos.png');
         this.load.image('guia', 'assets/guia.png');
+        this.load.image('redcross', 'assets/redcross.png');
+        this.load.image('reacoes', 'assets/reacoes.png');
+        this.load.image('list', 'assets/list.jpg');
+        this.load.image('bg', 'assets/background.jpg');
+        this.load.image('balancebg', 'assets/balancebg.jpg');
+        this.load.image('agno3', 'assets/agno3.png');
+        this.load.image('cacl2', 'assets/cacl2.png');
+        this.load.image('cuso4', 'assets/cuso4.png');
+        this.load.image('fecl3', 'assets/fecl3.png');
+        this.load.image('k2so4', 'assets/k2so4.png');
+        this.load.image('na2co3', 'assets/na2co3.png');
+        this.load.image('naoh', 'assets/naoh.png');
+        this.load.image('redcheck', 'assets/redcheck.png');
+        this.load.image('r1', 'assets/r1.png');
+        this.load.image('r2', 'assets/r2.png');
+        this.load.image('r3', 'assets/r3.png');
+        this.load.image('r4', 'assets/r4.png');
+        this.load.image('r5', 'assets/r5.png');
+        this.load.image('r6', 'assets/r6.png');
+        this.load.image('r7', 'assets/r7.png');
+        this.load.image('r8', 'assets/r8.png');
+        this.load.image('r9', 'assets/r9.png');
+        this.load.image('inputbox', 'assets/inputbox.png');
+        this.load.plugin('rexinputtextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexinputtextplugin.min.js', true);
+
+        this.graphics = this.add.graphics();
+		this.newGraphics = this.add.graphics();
+		var progressBar = new Phaser.Geom.Rectangle(200, 200, 400, 50);
+		var progressBarFill = new Phaser.Geom.Rectangle(205, 205, 290, 40);
+
+		this.graphics.fillStyle(0xffffff, 1);
+		this.graphics.fillRectShape(progressBar);
+
+		this.newGraphics.fillStyle(0x3587e2, 1);
+		this.newGraphics.fillRectShape(progressBarFill);
+
+		var loadingText = this.add.text(250,260,"Loading: ", { fontSize: '32px', fill: '#FFF' });
+
+		this.load.on('progress', this.updateBar, 
+        {newGraphics:this.newGraphics,loadingText:loadingText});
+		this.load.on('complete', this.complete, {scene:this.scene});
+	}
+
+	updateBar(percentage) {
+		this.newGraphics.clear();
+        this.newGraphics.fillStyle(0x3587e2, 1);
+        this.newGraphics.fillRectShape(new Phaser.Geom.Rectangle(205, 205, percentage*390, 40));
+        percentage = percentage * 100;
+        this.loadingText.setText("Loading: " + percentage.toFixed(2) + "%");
+	}
+
+	complete() {
+        console.log("COMPLETE!");
+		this.scene.start("MenuScene");
+	}
+}
+
+class MenuScene extends Phaser.Scene {
+
+    constructor(){
+        super('MenuScene');
     }
 
     create(){
@@ -52,10 +114,6 @@ class GuiaScene extends Phaser.Scene {
         super('GuiaScene');
     }
 
-    preload(){
-        this.load.image('voltar', 'assets/voltar.png');
-    }
-
     create(){
 
         this.add.sprite(0, 0, 'voltar')
@@ -79,10 +137,6 @@ class CreditScene extends Phaser.Scene {
 
     constructor(){
         super('CreditScene');
-    }
-
-    preload(){
-        this.load.image('voltar', 'assets/voltar.png');
     }
 
     create(){
@@ -110,25 +164,10 @@ class GameScene extends Phaser.Scene {
         super('GameScene');
     }
 
-    preload (){
-    this.load.image('bg', 'assets/background.jpg');
-    this.load.image('agno3', 'assets/agno3.png');
-    this.load.image('cacl2', 'assets/cacl2.png');
-    this.load.image('cuso4', 'assets/cuso4.png');
-    this.load.image('fecl3', 'assets/fecl3.png');
-    this.load.image('k2so4', 'assets/k2so4.png');
-    this.load.image('na2co3', 'assets/na2co3.png');
-    this.load.image('naoh', 'assets/naoh.png');
-    this.load.image('reacoes', 'assets/reacoes.png');
-    this.load.image('list', 'assets/list.jpg');
-    this.load.image('redcross', 'assets/redcross.png');
-    this.load.image('redcheck', 'assets/redcheck.png');
-    }   
-
     create (){
 
         const posx = [786, 951], posy = 27;
-        var popup, popupisOpen = false;
+        var popup;
         var slot = [false, false];
         var reactaux = 
         {
@@ -152,7 +191,7 @@ class GameScene extends Phaser.Scene {
 
         this.input.on('gameobjectover', function (pointer, gameObject) {
             gameObject.alpha = 0.8;
-            if(popupisOpen){popup.alpha = 1}
+            if(popup){popup.alpha = 1}
         });
 
         this.input.on('gameobjectout', function (pointer, gameObject) {
@@ -196,19 +235,12 @@ class GameScene extends Phaser.Scene {
         });
 
         /// --- REACT LIST --- ///
-        var reacoes = this.add.sprite(635, 49, 'reacoes')
-            .setInteractive()
+        var reacoes = createSprite(635, 49, 'reacoes', this)
             .on('pointerup', function(pointer){
-                if(!popupisOpen){
-                    popup = this.add.image(25, 30, 'list')
-                        .setInteractive()
-                        .setOrigin(0);
-                    popupisOpen = true;
-                }
-                popup.on('pointerup', function (pointer){
-                    popup.destroy();
-                    popupisOpen = false;
-                });
+                popup = createSprite(25, 30, 'list', this)
+                    .on('pointerup', function (pointer){
+                        popup.destroy();
+                    });
             }, this);
 
         /// --- PUSH BALANCE SCENE --- ///
@@ -327,27 +359,7 @@ class BalanceScene extends Phaser.Scene {
         super('BalanceScene');
     }
 
-    preload(){
-        this.load.image('balancebg', 'assets/balancebg.jpg');
-        this.load.image('agno3', 'assets/agno3.png');
-        this.load.image('cacl2', 'assets/cacl2.png');
-        this.load.image('cuso4', 'assets/cuso4.png');
-        this.load.image('fecl3', 'assets/fecl3.png');
-        this.load.image('k2so4', 'assets/k2so4.png');
-        this.load.image('na2co3', 'assets/na2co3.png');
-        this.load.image('naoh', 'assets/naoh.png');
-        this.load.image('redcheck', 'assets/redcheck.png');
-        this.load.image('r1', 'assets/r1.png');
-        this.load.image('r2', 'assets/r2.png');
-        this.load.image('r3', 'assets/r3.png');
-        this.load.image('r4', 'assets/r4.png');
-        this.load.image('r5', 'assets/r5.png');
-        this.load.image('r6', 'assets/r6.png');
-        this.load.image('r7', 'assets/r7.png');
-        this.load.image('r8', 'assets/r8.png');
-        this.load.image('r9', 'assets/r9.png');
-        this.load.image('inputbox', 'assets/inputbox.png');
-        this.load.plugin('rexinputtextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexinputtextplugin.min.js', true);  
+    preload(){  
     }
 
     create(data){
@@ -442,7 +454,7 @@ var config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: 1100,
     height: 500,
-    scene: [MenuScene, GuiaScene, CreditScene, GameScene, BalanceScene]
+    scene: [LoadingScene, MenuScene, GuiaScene, CreditScene, GameScene, BalanceScene]
 };
 
 var game = new Phaser.Game(config);
