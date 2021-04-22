@@ -15,17 +15,26 @@ class MenuScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'menu').setOrigin(0);
 
-        var jogar = this.add.sprite(50, 250, 'jogar')
+        this.add.sprite(50, 250, 'jogar')
             .setOrigin(0)
-            .setInteractive();
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                this.scene.start('GameScene');
+            }, this);
 
-        var guia = this.add.sprite(400, 250, 'guia')
+        this.add.sprite(400, 250, 'guia')
             .setOrigin(0)
-            .setInteractive();
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                this.scene.start('GuiaScene');
+            }, this);
 
-        var creditos = this.add.sprite(750, 250, 'creditos')
+        this.add.sprite(750, 250, 'creditos')
             .setOrigin(0)
-            .setInteractive();
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                this.scene.start('CreditScene');
+            }, this);
 
         this.input.on('gameobjectover', function (pointer, gameObject) {
             gameObject.alpha = 0.8;
@@ -34,27 +43,65 @@ class MenuScene extends Phaser.Scene {
         this.input.on('gameobjectout', function (pointer, gameObject) {
             gameObject.alpha = 1;
         });
-
-        jogar.on('pointerup', function (pointer){
-            this.scene.start('GameScene');
-        }, this);
-
-        guia.on('pointerup', function (pointer){
-            this.scene.start('GuiaScene');
-        }, this);
-
-        creditos.on('pointerup', function (pointer){
-            this.scene.start('CreditScene');
-        }, this);
     }
 }
 
 class GuiaScene extends Phaser.Scene {
+    
+    constructor(){
+        super('GuiaScene');
+    }
 
+    preload(){
+        this.load.image('voltar', 'assets/voltar.png');
+    }
+
+    create(){
+
+        this.add.sprite(0, 0, 'voltar')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function(pointer){
+                this.scene.start('MenuScene')
+            }, this)
+
+        this.input.on('gameobjectover', function (pointer, gameObject) {
+            gameObject.alpha = 0.8;
+        });
+    
+        this.input.on('gameobjectout', function (pointer, gameObject) {
+            gameObject.alpha = 1;
+        });
+    }
 }
 
 class CreditScene extends Phaser.Scene {
 
+    constructor(){
+        super('CreditScene');
+    }
+
+    preload(){
+        this.load.image('voltar', 'assets/voltar.png');
+    }
+
+    create(){
+
+        this.add.sprite(0, 0, 'voltar')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function(pointer){
+                this.scene.start('MenuScene')
+            }, this)
+
+        this.input.on('gameobjectover', function (pointer, gameObject) {
+            gameObject.alpha = 0.8;
+        });
+    
+        this.input.on('gameobjectout', function (pointer, gameObject) {
+            gameObject.alpha = 1;
+        });
+    }
 }
 
 class GameScene extends Phaser.Scene {
@@ -97,6 +144,12 @@ class GameScene extends Phaser.Scene {
         this.add.image(0, 0, 'bg')
             .setOrigin(0);
 
+        var text = this.add.text(600, 300, 'SELECIONE DOIS\n    REAGENTES', 
+        {
+            fontFamily: 'Forced Square',
+            fontSize: 20
+        });
+
         this.input.on('gameobjectover', function (pointer, gameObject) {
             gameObject.alpha = 0.8;
             if(popupisOpen){popup.alpha = 1}
@@ -104,12 +157,6 @@ class GameScene extends Phaser.Scene {
 
         this.input.on('gameobjectout', function (pointer, gameObject) {
             gameObject.alpha = 1;
-        });
-
-        var text = this.add.text(600, 300, 'SELECIONE DOIS\n    REAGENTES', 
-        {
-            fontFamily: 'Forced Square',
-            fontSize: 20
         });
     
         /// --- ADD SPRITES --- ///
@@ -172,50 +219,49 @@ class GameScene extends Phaser.Scene {
                     for(let i in reactaux){
                         if(reactaux[i] == true){toNext.push(i)}
                     }
-                    console.log(toNext);
                     switch(true){
                     default:
                         defaultConfig();
                         break;
-                    case toNext.includes('agno3', 'cacl2'):
+                    case ['agno3', 'cacl2'].every(elem => toNext.includes(elem)):
                         toNext.push('r1');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('agno3', 'na2co3'):
+                    case ['agno3', 'na2co3'].every(elem => toNext.includes(elem)):
                         toNext.push('r2');
                         this.scene.start('BalanceScene', toNext);
                         break;    
-                    case toNext.includes('agno3', 'naoh'):
+                    case ['agno3', 'naoh'].every(elem => toNext.includes(elem)):
                         toNext.push('r3');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('agno3', 'k2so4'):
+                    case ['agno3', 'k2so4'].every(elem => toNext.includes(elem)):
                         toNext.push('r4');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('fecl3', 'naoh'):
+                    case ['fecl3', 'naoh'].every(elem => toNext.includes(elem)):
                         toNext.push('r5');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('fecl3', 'na2co3'):
+                    case ['fecl3', 'na2co3'].every(elem => toNext.includes(elem)):
                         toNext.push('r6');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('cacl2', 'na2co3'):
+                    case ['cacl2', 'na2co3'].every(elem => toNext.includes(elem)):
                         toNext.push('r7');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('cuso4', 'naoh'):
+                    case ['cuso4', 'naoh'].every(elem => toNext.includes(elem)):
                         toNext.push('r8');
                         this.scene.start('BalanceScene', toNext);
                         break;
-                    case toNext.includes('cuso4', 'na2co3'):
+                    case ['cuso4', 'na2co3'].every(elem => toNext.includes(elem)):
                         toNext.push('r9');
                         this.scene.start('BalanceScene', toNext);
                         break;                         
                     }
                 }
-            }, this);
+            }, this); //zerar array?
 
         /// --- FUNCTIONS --- ///
         function createSprite(x, y, reference, scene){
@@ -301,16 +347,34 @@ class BalanceScene extends Phaser.Scene {
         this.load.image('r8', 'assets/r8.png');
         this.load.image('r9', 'assets/r9.png');
         this.load.image('inputbox', 'assets/inputbox.png');
-        //this.load.plugin('rextexteditplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rextexteditplugin.min.js', true);
-        //this.load.plugin('rexbbcodetextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexbbcodetextplugin.min.js', true);
         this.load.plugin('rexinputtextplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexinputtextplugin.min.js', true);  
     }
 
     create(data){
 
         const posx = [786, 951], posy = 27;
+        const gab =
+        {
+            r1: [2, 1, 2, 1],
+            r2: [2, 1, 1, 2],
+            r3: [1, 1, 1, 1],
+            r4: [2, 1, 1, 2],
+            r5: [1, 3, 1, 3],
+            r6: [2, 3, 1, 6],
+            r7: [1, 1, 1, 2],
+            r8: [1, 2, 1, 1],
+            r9: [1, 1, 1, 1]
+        }
 
-        var balancebg = this.add.image(0, 0, 'balancebg')
+        var coef = 
+        {
+            v: generateInput(110, 65, this),
+            w: generateInput(225, 65, this),
+            x: generateInput(110, 133, this),
+            z: generateInput(225, 133, this)
+        }
+
+        this.add.image(0, 0, 'balancebg')
             .setOrigin(0);
 
         this.add.image(posx[0], posy, data[0])
@@ -321,28 +385,33 @@ class BalanceScene extends Phaser.Scene {
 
         var eq = this.add.image(550, 400, data[2]);
 
-        var inputText = this.add.image(50, 50, 'inputbox')
+        var inputbox = this.add.image(50, 50, 'inputbox')
             .setOrigin(0);
 
-        var redcheck = this.add.sprite(300, 80, 'redcheck')
+        var redcheck = this.add.sprite(310, 95, 'redcheck')
             .setOrigin(0)
             .setInteractive()
             .on('pointerup', function(pointer){
-                let collectCoef = [];
-                for(let i in coef){
-                    collectCoef.push(coef[i].text)
+                let collectCoef = [], Answer = [];
+                for(let i in coef){collectCoef.push(coef[i].text)}
+                for(let i in gab){
+                    if(i == data[2]){
+                        Answer = gab[i];
+                        break;
+                    }
                 }
-                console.log(collectCoef)
+                //funçao comparação
 
+                //zerar array?
             });
 
-        var coef = 
-        {
-            v: generateInput(110, 65, this),
-            w: generateInput(225, 65, this),
-            x: generateInput(110, 133, this),
-            z: generateInput(225, 133, this)
-        }    
+        this.input.on('gameobjectover', function (pointer, gameObject) {
+            gameObject.alpha = 0.8;
+        });
+    
+        this.input.on('gameobjectout', function (pointer, gameObject) {
+            gameObject.alpha = 1;
+        });
 
         function generateInput(x, y, scene){
             let gInput = scene.add.rexInputText(x, y, 55, 35, 
@@ -373,7 +442,7 @@ var config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: 1100,
     height: 500,
-    scene: [MenuScene, CreditScene, GameScene, BalanceScene]
+    scene: [MenuScene, GuiaScene, CreditScene, GameScene, BalanceScene]
 };
 
 var game = new Phaser.Game(config);
