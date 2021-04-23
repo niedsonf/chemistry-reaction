@@ -5,6 +5,9 @@ class LoadingScene extends Phaser.Scene {
     }
 
     preload() {
+        /*for(var i =0;i<60;i++) {
+			this.load.image('background'+i, 'assets/background.jpg');
+		} //PARA TESTAR LOADING */
         this.load.image('voltar', 'assets/voltar.png');
         this.load.image('menu', 'assets/menuscreen.jpg');
         this.load.image('jogar', 'assets/jogar.png');
@@ -37,33 +40,37 @@ class LoadingScene extends Phaser.Scene {
 
         this.graphics = this.add.graphics();
 		this.newGraphics = this.add.graphics();
-		var progressBar = new Phaser.Geom.Rectangle(200, 200, 400, 50);
-		var progressBarFill = new Phaser.Geom.Rectangle(205, 205, 290, 40);
+		var progressBar = new Phaser.Geom.Rectangle(350, 250, 400, 50);
+		var progressBarFill = new Phaser.Geom.Rectangle(355, 255, 0, 40);
 
 		this.graphics.fillStyle(0xffffff, 1);
 		this.graphics.fillRectShape(progressBar);
 
-		this.newGraphics.fillStyle(0x3587e2, 1);
+		this.newGraphics.fillStyle(0x8A2BE2, 1);
 		this.newGraphics.fillRectShape(progressBarFill);
 
-		var loadingText = this.add.text(250,260,"Loading: ", { fontSize: '32px', fill: '#FFF' });
+		var loadingText = this.add.text(550, 320, "Loading: ", 
+        { 
+            fontSize: '32px', 
+            fill: '#8A2BE2',
+            fontFamily: "Forced Square"
+        });
 
 		this.load.on('progress', this.updateBar, 
-        {newGraphics:this.newGraphics,loadingText:loadingText});
-		this.load.on('complete', this.complete, {scene:this.scene});
+        {
+            newGraphics:this.newGraphics,
+            loadingText:loadingText
+        });
+
+		this.load.on('complete', () => this.scene.start("MenuScene"));
 	}
 
 	updateBar(percentage) {
 		this.newGraphics.clear();
-        this.newGraphics.fillStyle(0x3587e2, 1);
-        this.newGraphics.fillRectShape(new Phaser.Geom.Rectangle(205, 205, percentage*390, 40));
+        this.newGraphics.fillStyle(0x8A2BE2, 1);
+        this.newGraphics.fillRectShape(new Phaser.Geom.Rectangle(355, 255, percentage*390, 40));
         percentage = percentage * 100;
         this.loadingText.setText("Loading: " + percentage.toFixed(2) + "%");
-	}
-
-	complete() {
-        console.log("COMPLETE!");
-		this.scene.start("MenuScene");
 	}
 }
 
@@ -77,23 +84,17 @@ class MenuScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'menu').setOrigin(0);
 
-        this.add.sprite(50, 250, 'jogar')
-            .setOrigin(0)
-            .setInteractive()
+        var jogar = createSprite(50, 250, 'jogar', this)
             .on('pointerup', function (pointer){
                 this.scene.start('GameScene');
             }, this);
 
-        this.add.sprite(400, 250, 'guia')
-            .setOrigin(0)
-            .setInteractive()
+        var guia = createSprite(400, 250, 'guia', this)
             .on('pointerup', function (pointer){
                 this.scene.start('GuiaScene');
             }, this);
 
-        this.add.sprite(750, 250, 'creditos')
-            .setOrigin(0)
-            .setInteractive()
+        var creditos = createSprite(750, 250, 'creditos', this)
             .on('pointerup', function (pointer){
                 this.scene.start('CreditScene');
             }, this);
@@ -105,6 +106,13 @@ class MenuScene extends Phaser.Scene {
         this.input.on('gameobjectout', function (pointer, gameObject) {
             gameObject.alpha = 1;
         });
+
+        function createSprite(x, y, reference, scene){
+            let newSprite = scene.add.sprite(x, y, reference)
+                .setOrigin(0)
+                .setInteractive()
+            return newSprite;
+        }
     }
 }
 
@@ -359,9 +367,6 @@ class BalanceScene extends Phaser.Scene {
         super('BalanceScene');
     }
 
-    preload(){  
-    }
-
     create(data){
 
         const posx = [786, 951], posy = 27;
@@ -377,14 +382,11 @@ class BalanceScene extends Phaser.Scene {
             r8: [1, 2, 1, 1],
             r9: [1, 1, 1, 1]
         }
-
-        var coef = 
-        {
-            v: generateInput(110, 65, this),
-            w: generateInput(225, 65, this),
-            x: generateInput(110, 133, this),
-            z: generateInput(225, 133, this)
-        }
+        var collectCoef = []
+        var coefV = generateInput(110, 65, this, 0)
+        var coefW = generateInput(225, 65, this, 1)
+        var coefX = generateInput(110, 133, this, 2)
+        var coefZ = generateInput(225, 133, this, 3)
 
         this.add.image(0, 0, 'balancebg')
             .setOrigin(0);
@@ -404,14 +406,15 @@ class BalanceScene extends Phaser.Scene {
             .setOrigin(0)
             .setInteractive()
             .on('pointerup', function(pointer){
-                let collectCoef = [], Answer = [];
-                for(let i in coef){collectCoef.push(coef[i].text)}
+                let Answer = [];
                 for(let i in gab){
                     if(i == data[2]){
                         Answer = gab[i];
                         break;
                     }
                 }
+                console.log(collectCoef);
+                console.log(Answer);
                 //funçao comparação
 
                 //zerar array?
@@ -425,8 +428,8 @@ class BalanceScene extends Phaser.Scene {
             gameObject.alpha = 1;
         });
 
-        function generateInput(x, y, scene){
-            let gInput = scene.add.rexInputText(x, y, 55, 35, 
+        function generateInput(x, y, scene, selector){
+            var inputText = scene.add.rexInputText(x, y, 55, 35, 
             {
                 type: 'number',
                 text: '0',
@@ -437,13 +440,16 @@ class BalanceScene extends Phaser.Scene {
                 align: 'center'
             })
                 .setOrigin(0)
-                gInput.node.addEventListener("keypress", function (evt) {
+                .on('textchange', function (inputText) {
+                    collectCoef[selector] = inputText.text;
+                })
+                .node.addEventListener("keypress", function (evt) {
                     if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
                         evt.preventDefault();
                     }
                 });
-            return gInput;
-        }    
+            return inputText;
+        }
     }
 }
 
@@ -454,6 +460,7 @@ var config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: 1100,
     height: 500,
+    backgroundColor: '#4488aa',
     scene: [LoadingScene, MenuScene, GuiaScene, CreditScene, GameScene, BalanceScene]
 };
 
