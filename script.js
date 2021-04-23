@@ -82,11 +82,12 @@ class MenuScene extends Phaser.Scene {
 
     create(){
 
+        let score = [0];
         this.add.image(0, 0, 'menu').setOrigin(0);
 
         var jogar = createSprite(50, 250, 'jogar', this)
             .on('pointerup', function (pointer){
-                this.scene.start('GameScene');
+                this.scene.start('GameScene', {score: 0});
             }, this);
 
         var guia = createSprite(400, 250, 'guia', this)
@@ -172,7 +173,7 @@ class GameScene extends Phaser.Scene {
         super('GameScene');
     }
 
-    create (){
+    create (data){
 
         const posx = [786, 951], posy = 27;
         var popup;
@@ -187,11 +188,13 @@ class GameScene extends Phaser.Scene {
             naoh: false,
             cacl2: false
         };
+
+        this.score = data.score;
         
         this.add.image(0, 0, 'bg')
             .setOrigin(0);
 
-        var text = this.add.text(600, 300, 'SELECIONE DOIS\n    REAGENTES', 
+        var text = this.add.text(600, 300, "SELECIONE DOIS\n    REAGENTES  " +this.score, 
         {
             fontFamily: 'Forced Square',
             fontSize: 20
@@ -254,7 +257,8 @@ class GameScene extends Phaser.Scene {
         /// --- PUSH BALANCE SCENE --- ///
         var redcheck = createSprite(1000, 256, 'redcheck', this)
             .on('pointerup', function (pointer){
-                var toNext = [];
+                let toNext = [];
+                toNext.push(this.score);
                 if(slot[0] && slot[1]){
                     for(let i in reactaux){
                         if(reactaux[i] == true){toNext.push(i)}
@@ -326,7 +330,7 @@ class GameScene extends Phaser.Scene {
             text.setText('REAÇÃO INVÁLIDA');
             setTimeout(() => text.setText('SELECIONE DOIS\n    REAGENTES'), 1000);
         }
-
+ 
         function selecting(element, x, y, state){
             var s = state;
             if(!s && !slot[1] || !s && !slot[0]){
@@ -382,22 +386,22 @@ class BalanceScene extends Phaser.Scene {
             r8: [1, 2, 1, 1],
             r9: [1, 1, 1, 1]
         }
-        var collectCoef = []
-        var coefV = generateInput(110, 65, this, 0)
-        var coefW = generateInput(225, 65, this, 1)
-        var coefX = generateInput(110, 133, this, 2)
-        var coefZ = generateInput(225, 133, this, 3)
+        var collectCoef = [], Answer = [], score = data[0];
+        var coefV = generateInput(110, 65, this, 0);
+        var coefW = generateInput(225, 65, this, 1);
+        var coefX = generateInput(110, 133, this, 2);
+        var coefZ = generateInput(225, 133, this, 3);
 
         this.add.image(0, 0, 'balancebg')
             .setOrigin(0);
 
-        this.add.image(posx[0], posy, data[0])
+        this.add.image(posx[0], posy, data[1])
             .setOrigin(0);
 
-        this.add.image(posx[1], posy, data[1])
+        this.add.image(posx[1], posy, data[2])
             .setOrigin(0);
 
-        var eq = this.add.image(550, 400, data[2]);
+        var eq = this.add.image(550, 400, data[3]);
 
         var inputbox = this.add.image(50, 50, 'inputbox')
             .setOrigin(0);
@@ -406,19 +410,20 @@ class BalanceScene extends Phaser.Scene {
             .setOrigin(0)
             .setInteractive()
             .on('pointerup', function(pointer){
-                let Answer = [];
                 for(let i in gab){
-                    if(i == data[2]){
+                    if(i == data[3]){
                         Answer = gab[i];
                         break;
                     }
                 }
+                checkInput() ? this.scene.start('GameScene', {score: score}) : console.log('errou')
                 console.log(collectCoef);
                 console.log(Answer);
+
                 //funçao comparação
 
                 //zerar array?
-            });
+            }, this);
 
         this.input.on('gameobjectover', function (pointer, gameObject) {
             gameObject.alpha = 0.8;
@@ -427,6 +432,17 @@ class BalanceScene extends Phaser.Scene {
         this.input.on('gameobjectout', function (pointer, gameObject) {
             gameObject.alpha = 1;
         });
+
+        function checkInput(){
+            let result = false;
+            for(let i of Answer){
+                if(Answer[i] == collectCoef[i]){
+                    result = true;
+                }
+            }
+            score++;
+            return result;
+        }
 
         function generateInput(x, y, scene, selector){
             var inputText = scene.add.rexInputText(x, y, 55, 35, 
@@ -441,7 +457,7 @@ class BalanceScene extends Phaser.Scene {
             })
                 .setOrigin(0)
                 .on('textchange', function (inputText) {
-                    collectCoef[selector] = inputText.text;
+                    collectCoef[selector] = parseInt(inputText.text);
                 })
                 .node.addEventListener("keypress", function (evt) {
                     if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
