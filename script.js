@@ -82,36 +82,25 @@ class MenuScene extends Phaser.Scene {
 
     create(){
 
-        let score = [0];
         this.add.image(0, 0, 'menu').setOrigin(0);
-
-        var jogar = createSprite(50, 250, 'jogar', this)
-            .on('pointerup', function (pointer){
-                this.scene.start('GameScene', {score: 0});
-            }, this);
-
-        var guia = createSprite(400, 250, 'guia', this)
-            .on('pointerup', function (pointer){
-                this.scene.start('GuiaScene');
-            }, this);
-
-        var creditos = createSprite(750, 250, 'creditos', this)
-            .on('pointerup', function (pointer){
-                this.scene.start('CreditScene');
-            }, this);
-
         this.input.on('gameobjectover', function (pointer, gameObject) {
             gameObject.alpha = 0.8;
         });
-
         this.input.on('gameobjectout', function (pointer, gameObject) {
             gameObject.alpha = 1;
         });
 
-        function createSprite(x, y, reference, scene){
+        var jogar = createSprite(50, 250, 'jogar', this, 'GameScene');
+        var guia = createSprite(400, 250, 'guia', this, 'GuiaScene');
+        var creditos = createSprite(750, 250, 'creditos', this, 'CreditScene');
+
+        function createSprite(x, y, reference, scene, key){
             let newSprite = scene.add.sprite(x, y, reference)
                 .setOrigin(0)
                 .setInteractive()
+                .on('pointerup', function (pointer){
+                    scene.scene.start(key);
+                }, scene);
             return newSprite;
         }
     }
@@ -176,6 +165,23 @@ class GameScene extends Phaser.Scene {
     create (data){
 
         const posx = [786, 951], posy = 27;
+        const textStyle = 
+        {
+            fontFamily: 'Forced Square',
+            fontSize: 30,
+            color: 'blueviolet',
+            align: 'center',
+            fixedWidth: 210,
+            fixedHeight: 50,
+            shadow: {
+                offsetX: 0.8,
+                offsetY: 0.8,
+                color: '#000',
+                blur: 0.5,
+                stroke: true,
+                fill: true
+            }
+        }
         var popup;
         var slot = [false, false];
         var reactaux = 
@@ -189,16 +195,12 @@ class GameScene extends Phaser.Scene {
             cacl2: false
         };
 
-        this.score = data.score;
+        data.score ? this.score = data.score : this.score = 0;
         
         this.add.image(0, 0, 'bg')
             .setOrigin(0);
 
-        var text = this.add.text(600, 300, "SELECIONE DOIS\n    REAGENTES  " +this.score, 
-        {
-            fontFamily: 'Forced Square',
-            fontSize: 20
-        });
+        var text = this.add.text(634, 297, "ESCOLHA OS\nREAGENTES", textStyle);
 
         this.input.on('gameobjectover', function (pointer, gameObject) {
             gameObject.alpha = 0.8;
@@ -245,8 +247,11 @@ class GameScene extends Phaser.Scene {
                 reactaux.cacl2 = selecting(cacl2, 484, 256, reactaux.cacl2);
         });
 
+        /// --- REACOINS --- ///
+        var scoreholder = this.add.text(520, 100, this.score, textStyle);
+
         /// --- REACT LIST --- ///
-        var reacoes = createSprite(635, 49, 'reacoes', this)
+        var reacoes = createSprite(520, 49, 'reacoes', this)
             .on('pointerup', function(pointer){
                 popup = createSprite(25, 30, 'list', this)
                     .on('pointerup', function (pointer){
@@ -305,7 +310,7 @@ class GameScene extends Phaser.Scene {
                         break;                         
                     }
                 }
-            }, this); //zerar array?
+            }, this);
 
         /// --- FUNCTIONS --- ///
         function createSprite(x, y, reference, scene){
@@ -327,12 +332,12 @@ class GameScene extends Phaser.Scene {
             for(let i in reactaux){
                 reactaux[i] = false;
             }
-            text.setText('REAÇÃO INVÁLIDA');
-            setTimeout(() => text.setText('SELECIONE DOIS\n    REAGENTES'), 1000);
+            text.setText('REAÇÃO\nINVÁLIDA').setStyle({color: 'red'});
+            setTimeout(() => text.setText("ESCOLHA OS\nREAGENTES").setStyle(textStyle), 1000);
         }
  
         function selecting(element, x, y, state){
-            var s = state;
+            let s = state;
             if(!s && !slot[1] || !s && !slot[0]){
                 switch(slot[0]){
                     case false:
@@ -346,7 +351,7 @@ class GameScene extends Phaser.Scene {
                         slot[1] = true;
                         break;
                 }
-            } else {
+            } else { 
                 switch(element.x){
                     case 786:
                         element.setPosition(x, y);
@@ -386,7 +391,35 @@ class BalanceScene extends Phaser.Scene {
             r8: [1, 2, 1, 1],
             r9: [1, 1, 1, 1]
         }
-        var collectCoef = [], Answer = [], score = data[0];
+        const textStyle = 
+        [
+            {
+                fontFamily: 'Forced Square',
+                fontSize: '30px',
+                color: 'blueviolet',
+                align: 'center',
+                fixedHeight: 50,
+                shadow: {
+                    offsetX: 0.8,
+                    offsetY: 0.8,
+                    color: '#000',
+                    blur: 0.5,
+                    stroke: true,
+                    fill: true
+                }
+            },
+            {
+                type: 'number',
+                text: '0',
+                color: 'blueviolet',
+                fontSize: '35px',
+                fontFamily: 'Forced Square',
+                backgroundColor: '#333333',
+                align: 'center'
+            }
+        ]
+
+        var collectCoef = [], Answer = [], newScore = data[0];
         var coefV = generateInput(110, 65, this, 0);
         var coefW = generateInput(225, 65, this, 1);
         var coefX = generateInput(110, 133, this, 2);
@@ -406,6 +439,8 @@ class BalanceScene extends Phaser.Scene {
         var inputbox = this.add.image(50, 50, 'inputbox')
             .setOrigin(0);
 
+        var text = this.add.text(634, 297, "ESCOLHA OS\nREAGENTES", textStyle[0]);
+
         var redcheck = this.add.sprite(310, 95, 'redcheck')
             .setOrigin(0)
             .setInteractive()
@@ -416,13 +451,7 @@ class BalanceScene extends Phaser.Scene {
                         break;
                     }
                 }
-                checkInput() ? this.scene.start('GameScene', {score: score}) : console.log('errou')
-                console.log(collectCoef);
-                console.log(Answer);
-
-                //funçao comparação
-
-                //zerar array?
+                checkInput() ? correctInput(this) : wrongInput()
             }, this);
 
         this.input.on('gameobjectover', function (pointer, gameObject) {
@@ -433,6 +462,16 @@ class BalanceScene extends Phaser.Scene {
             gameObject.alpha = 1;
         });
 
+        function correctInput(ref){
+            newScore++
+            ref.scene.start('GameScene', {score: newScore})
+        }
+
+        function wrongInput(){
+            text.setText('BALANCEAMENTO\nERRADO').setStyle({color: 'red'});
+            setTimeout(() => text.setText("ESCOLHA OS\nREAGENTES").setStyle(textStyle[0]), 1000);
+        }
+
         function checkInput(){
             let result = false;
             for(let i of Answer){
@@ -440,21 +479,11 @@ class BalanceScene extends Phaser.Scene {
                     result = true;
                 }
             }
-            score++;
             return result;
         }
 
         function generateInput(x, y, scene, selector){
-            var inputText = scene.add.rexInputText(x, y, 55, 35, 
-            {
-                type: 'number',
-                text: '0',
-                color: 'blueviolet',
-                fontSize: '35px',
-                fontFamily: 'Forced Square',
-                backgroundColor: '#333333',
-                align: 'center'
-            })
+            var inputText = scene.add.rexInputText(x, y, 55, 35, textStyle[1])
                 .setOrigin(0)
                 .on('textchange', function (inputText) {
                     collectCoef[selector] = parseInt(inputText.text);
