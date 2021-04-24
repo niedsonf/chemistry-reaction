@@ -16,22 +16,73 @@
 }
 
 body {
-    background-color: blueviolet;
+    background: blueviolet url('../assets/menu.jpg') repeat-x;
 }
 
 header {
-    background-color: rgb(68, 7, 124);
     margin-bottom: 20px;
-    height: 70px;
+    height: 80px;
     font-size: 25px;
     text-shadow: black 0.2em 0.2em 0.5em;
-    line-height: 70px;
+    padding: 10px 20px;
+    background: url('../assets/menu.jpg') repeat-x;
+}
+
+#container {
+    margin: 0 auto;
+    width: 1200px;
 }
 
 #game-container {
     width: 1120px;
     height: 520px;
-    background-color: rgb(68, 7, 124);
+    background-color: #44077c;
     margin: 0 auto;
     border-radius: 0.8em;
+}
+
+header h1 {
+    float: left;
+    line-height: 80px;
+}
+
+nav ul {
+    margin-right: 50px;
+    list-style: none;
+    float: right;
+}
+
+nav ul li {
+    margin-top: 18px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 10px;
+}
+
+nav ul li a {
+    padding: 20px 10px;
+    color: white;
+    transition: color 2s;
+}
+
+nav ul li a:hover {
+    color: #8a2be2;
+    transition: color 4s;
+}
+
+.navbox {
+    width: 0%;
+    background-color: none;
+    transition: all 1.5s;
+}
+
+.navbox:hover {
+    width: 100%;
+    background-color: black;
+    transition: all 3s;
+}
+
+a:link, a:active, a:visited {
+    color: white;
+    text-decoration: none;
 }
