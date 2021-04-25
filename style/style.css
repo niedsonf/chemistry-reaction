@@ -20,7 +20,7 @@ body {
 }
 
 header {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     height: 80px;
     font-size: 25px;
     text-shadow: black 0.2em 0.2em 0.5em;
@@ -53,16 +53,17 @@ nav ul {
 }
 
 nav ul li {
-    margin-top: 18px;
-    height: 40px;
+    margin-right: 30px;
+    margin-top: 16px;
     line-height: 40px;
     border-radius: 10px;
+    float: left;
 }
 
 nav ul li a {
     padding: 20px 10px;
     color: white;
-    transition: color 2s;
+    transition: color 4s;
 }
 
 nav ul li a:hover {
@@ -70,7 +71,7 @@ nav ul li a:hover {
     transition: color 4s;
 }
 
-.navbox {
+/*.navbox {
     width: 0%;
     background-color: none;
     transition: all 1.5s;
@@ -78,6 +79,18 @@ nav ul li a:hover {
 
 .navbox:hover {
     width: 100%;
+    background-color: black;
+    transition: all 3s;
+}*/
+
+.navbox {
+    border-radius: 8px;
+    background-color: none;
+    transition: all 3s;
+}
+
+.navbox:hover {
+    border-radius: 30px;
     background-color: black;
     transition: all 3s;
 }

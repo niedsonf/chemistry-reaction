@@ -8,6 +8,7 @@ class LoadingScene extends Phaser.Scene {
         /*for(var i =0;i<60;i++) {
 			this.load.image('background'+i, 'assets/background.jpg');
 		} //PARA TESTAR LOADING */
+        this.load.image('reactcoins', 'assets/reactcoins.png')
         this.load.image('voltar', 'assets/voltar.png');
         this.load.image('menu', 'assets/menuscreen.jpg');
         this.load.image('jogar', 'assets/jogar.png');
@@ -200,8 +201,6 @@ class GameScene extends Phaser.Scene {
         this.add.image(0, 0, 'bg')
             .setOrigin(0);
 
-        var text = this.add.text(634, 297, "ESCOLHA OS\nREAGENTES", textStyle);
-
         this.input.on('gameobjectover', function (pointer, gameObject) {
             gameObject.alpha = 0.8;
             if(popup){popup.alpha = 1}
@@ -247,8 +246,10 @@ class GameScene extends Phaser.Scene {
                 reactaux.cacl2 = selecting(cacl2, 484, 256, reactaux.cacl2);
         });
 
-        /// --- REACOINS --- ///
-        var scoreholder = this.add.text(520, 100, this.score, textStyle);
+        /// --- REACTCOINS --- ///
+        this.add.image(530, 150, 'reactcoins')
+            .setOrigin(0);
+        var scoreholder = this.add.text(530, 163, 'x '+this.score, textStyle);
 
         /// --- REACT LIST --- ///
         var reacoes = createSprite(520, 49, 'reacoes', this)
@@ -260,7 +261,8 @@ class GameScene extends Phaser.Scene {
             }, this);
 
         /// --- PUSH BALANCE SCENE --- ///
-        var redcheck = createSprite(1000, 256, 'redcheck', this)
+        var text = this.add.text(634, 297, "ESCOLHA OS\nREAGENTES", textStyle);
+        var redcheck = createSprite(715, 360, 'redcheck', this)
             .on('pointerup', function (pointer){
                 let toNext = [];
                 toNext.push(this.score);
@@ -446,12 +448,11 @@ class BalanceScene extends Phaser.Scene {
             .setInteractive()
             .on('pointerup', function(pointer){
                 for(let i in gab){
-                    if(i == data[3]){
-                        Answer = gab[i];
-                        break;
-                    }
+                    i == data[3] && String(gab[i]) == String(collectCoef) ? correctInput(this) : wrongInput()  
                 }
-                checkInput() ? correctInput(this) : wrongInput()
+                console.log(String(collectCoef));
+                //console.log(collectCoef);
+                //Answer.every(elem => collectCoef.includes(elem, Answer.indexOf(elem))) ? correctInput(this) : wrongInput()
             }, this);
 
         this.input.on('gameobjectover', function (pointer, gameObject) {
@@ -470,16 +471,6 @@ class BalanceScene extends Phaser.Scene {
         function wrongInput(){
             text.setText('BALANCEAMENTO\nERRADO').setStyle({color: 'red'});
             setTimeout(() => text.setText("ESCOLHA OS\nREAGENTES").setStyle(textStyle[0]), 1000);
-        }
-
-        function checkInput(){
-            let result = false;
-            for(let i of Answer){
-                if(Answer[i] == collectCoef[i]){
-                    result = true;
-                }
-            }
-            return result;
         }
 
         function generateInput(x, y, scene, selector){
