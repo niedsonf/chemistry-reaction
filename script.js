@@ -450,9 +450,6 @@ class BalanceScene extends Phaser.Scene {
                 for(let i in gab){
                     i == data[3] && String(gab[i]) == String(collectCoef) ? correctInput(this) : wrongInput()  
                 }
-                console.log(String(collectCoef));
-                //console.log(collectCoef);
-                //Answer.every(elem => collectCoef.includes(elem, Answer.indexOf(elem))) ? correctInput(this) : wrongInput()
             }, this);
 
         this.input.on('gameobjectover', function (pointer, gameObject) {
@@ -474,7 +471,7 @@ class BalanceScene extends Phaser.Scene {
         }
 
         function generateInput(x, y, scene, selector){
-            var inputText = scene.add.rexInputText(x, y, 55, 35, textStyle[1])
+            let inputText = scene.add.rexInputText(x, y, 55, 35, textStyle[1])
                 .setOrigin(0)
                 .on('textchange', function (inputText) {
                     collectCoef[selector] = parseInt(inputText.text);
