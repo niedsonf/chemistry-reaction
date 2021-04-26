@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,40 +10,45 @@
     <script src="./phaser.min.js"></script>
     <title>Chemistry Reaction</title>
 </head>
+
 <body>
     <section id="container">
         <header>
             <h1>Chemistry Reaction !</h1>
             <nav>
                 <ul>
-                    <li class="navbox"><a href="https://github.com/niedsonf/chemistry-reaction" target="_blank">Sobre</a></li>
+                    <li class="navbox"><a href="" target="_blank">Sobre</a></li>
                     <li class="navbox"><a href="#comojogar">Como jogar</a></li>
-                    <li class="navbox"><a href="https://github.com/niedsonf/chemistry-reaction" target="_blank">GitHub</a></li>
+                    <li class="navbox"><a href="https://github.com/niedsonf/chemistry-reaction"
+                            target="_blank">GitHub</a></li>
                 </ul>
             </nav>
         </header>
-    
-        <div id="game-container"><script src="script.js"></script></div>
+        <hr>
+        <div id="game-container">
+            <script src="script.js"></script>
+        </div>
     </section>
 
-    <div id="divtopblack">
-    
-        <section id="comojogar">
-    
-            <article id="spacing">
-                <img src="assets/mouse.png" alt="mouse illustration">
-                <p><span>Como jogar</span><br><br>Chemistry Reaction possui jogabilidade Point-and-Click, clique nos reagentes para adiciona-los a reação.
-                    É possível ver a lista de combinações possíveis clicando no botão "Reações".<br><br>Após escolher dois elementos clique no botão de verificação vermelho!</p>
-            </article>
+    <section id="comojogar">
+        <div id="cj1">
+            <img src="assets/mouse.png" alt="mouse illustration">
+            <p><span>Como jogar</span><br><br>Clique nos reagentes para adiciona-los a reação. É possível acessar a
+                lista de combinações possíveis através do botão "Reações".<br><br>Pressione o botão verificador após
+                escolher dois elementos.</p>
+        </div>
 
-            <div class="cleaner"></div>
-    
-            <article id="final">
-                <img src="assets/click.png" alt="mouse illustration">
-                <p>Insira os 4 coeficientes que satisfazem o balaceamento da equação e clique no botão verificador vermelho.</p>
-            </article>
-        </section>
-    </div>
+        <div class="cleaner"></div>
+
+        <div id="cj2">
+            <img src="assets/click.png" alt="clickable illustration">
+            <p>Insira os quatro coeficientes que satisfazem o balaceamento da equação e em seguida pressione o
+                verificador. Os números podem ser inseridos pelo teclado.<br><br>Ganhe ReactCoins como recompensa por
+                acertar os balanceamentos!</p>
+        </div>
+    </section>
+
     <footer></footer>
 </body>
+
 </html>

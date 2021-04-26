@@ -12,25 +12,32 @@
     margin: 0;
     padding: 0;
     font-family: "Aromia";
-    color: white;
+    color:white;
 }
 
 body {
-    background: #8a2be2 url('../assets/menu.jpg') repeat-x;
+    background: black url('../assets/fundohtml.jpg') top center no-repeat;
 }
 
 header {
-    margin-bottom: 10px;
     height: 80px;
-    font-size: 25px;
-    text-shadow: black 0.2em 0.2em 0.5em;
+    font-size: 30px;
     padding: 10px 20px;
-    background: url('../assets/menu.jpg') repeat-x;
+    text-shadow: 2px 2px black;
 }
 
 #container {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
+    height: 100%;
+}
+
+#container hr {
+    position: absolute;
+    margin-top: -20px;
+    width: 1200px;
+    border: 1px solid black;
 }
 
 #game-container {
@@ -49,34 +56,32 @@ header h1 {
 }
 
 nav ul {
-    margin-right: 50px;
     list-style: none;
     float: right;
 }
 
 nav ul li {
-    margin-right: 30px;
+    margin-left: 30px;
     margin-top: 16px;
-    line-height: 40px;
-    border-radius: 10px;
+    line-height: 50px;
     float: left;
 }
 
 nav ul li a {
     padding: 20px 10px;
     color: white;
-    transition: color 4s;
+    transition: color 2s;
 }
 
 nav ul li a:hover {
-    color: #8a2be2;
-    transition: color 4s;
+    color: #E84AD0;
+    transition: color 2s;
 }
 
 .navbox {
     border-radius: 8px 2px 8px 2px;
     background-color: none;
-    transition: all 4s;
+    transition: all 2s;
 }
 
 .navbox:hover {
@@ -90,51 +95,38 @@ a:link, a:active, a:visited {
     text-decoration: none;
 }
 
-#divtopblack {
-    background: black url('../assets/divisorblack.jpg') repeat-x;
-    background-color: black;
-    height: 1500px
-}
-
 #comojogar {
     font-size: 35px;
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-p {
+#comojogar p {
+    color: #E84AD0;
     text-align: justify;
     line-height: 1.3em;
+    width: 750px;
 }
 
-#spacing img {
+#cj1 img {
     float: left;
-    margin-bottom: 140px;
-    margin-top: 240px;
+    margin-top: 230px;
 }
 
-#spacing p {
+#cj1 p {
     float: right;
-    width: 770px;
-    margin-top: 170px;
-    margin-right: 30px;
+    margin-top: 220px;
 }
 
-#spacing p span {
-    color: blueviolet;
-    font-size: 55px;
-}
-
-#final img {
+#cj2 img {
+    margin-top: 70px;
     float: right;
-    margin-right: 50px;
-    margin-top: 40px;
 }
 
-#final p {
-    margin-top: 100px;
+#cj2 p {
+    margin-top: 60px;
     float: left;
-    width: 770px;
 }
 
 .cleaner {
