@@ -15,44 +15,31 @@
     color:white;
 }
 
-body {
-    background: black url('../assets/fundohtml.jpg') top center no-repeat;
+#top {
+    width: 100%;
+    height: 768px;
+    background: black url('../assets/fundohtml.jpg');
+}
+
+#top hr {
+    margin: 0 auto 14px auto;
+    width: 1200px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 6px blueviolet;
 }
 
 header {
     height: 80px;
-    font-size: 30px;
+    font-size: 32px;
     padding: 10px 20px;
-    text-shadow: 2px 2px black;
-}
-
-#container {
-    width: 100%;
-    max-width: 1200px;
+    width: 85%;
     margin: 0 auto;
-    height: 100%;
-}
-
-#container hr {
-    position: absolute;
-    margin-top: -20px;
-    width: 1200px;
-    border: 1px solid black;
-}
-
-#game-container {
-    width: 1120px;
-    height: 520px;
-    margin: 0 auto;
-    border-radius: 0.8em 0.2em 0.8em 0.2em;
-    box-shadow: 0 0 0.5em black;
-    margin-bottom: 10px;
-    clear: both;
 }
 
 header h1 {
     float: left;
     line-height: 80px;
+    text-shadow: 2px 2px black;
 }
 
 nav ul {
@@ -62,14 +49,14 @@ nav ul {
 
 nav ul li {
     margin-left: 30px;
-    margin-top: 16px;
+    margin-top: 0.7em;
     line-height: 50px;
     float: left;
 }
 
 nav ul li a {
     padding: 20px 10px;
-    color: white;
+    color: blueviolet;
     transition: color 2s;
 }
 
@@ -80,14 +67,13 @@ nav ul li a:hover {
 
 .navbox {
     border-radius: 8px 2px 8px 2px;
-    background-color: none;
+    background-color: black;
     transition: all 2s;
 }
 
 .navbox:hover {
     border-radius: 25px 5px 25px 5px;
-    background-color: black;
-    transition: all 4s;
+    transition: all 3s;
 }
 
 a:link, a:active, a:visited {
@@ -95,42 +81,59 @@ a:link, a:active, a:visited {
     text-decoration: none;
 }
 
+#game {
+    width: 1120px;
+    height: 520px;
+    margin: auto;
+    box-shadow: 1px 1px 6px black;
+    border-radius: 10px 2px 10px 2px;
+    clear: both;
+}
+
 #comojogar {
-    font-size: 35px;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    height: 1000px;
+    background: black;
 }
 
 #comojogar p {
+    text-indent: 10px;
+    font-size: 32px;
     color: #E84AD0;
+    line-height: 1.2em;
+    width: 600px;
     text-align: justify;
-    line-height: 1.3em;
-    width: 750px;
 }
 
-#cj1 img {
-    float: left;
-    margin-top: 230px;
+#instrucoes {
+    width: 92%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-#cj1 p {
-    float: right;
-    margin-top: 220px;
+.ione {
+    margin: 150px 0 0 70px;
 }
 
-#cj2 img {
-    margin-top: 70px;
-    float: right;
+.itwo {
+    margin: 100px 110px 80px 0;
 }
 
-#cj2 p {
-    margin-top: 60px;
-    float: left;
+.itwo h2 {
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 50px;
 }
 
-.cleaner {
-    clear: both;
+.ithree {
+    margin-top: 40px;
+    margin-left: 110px;
+}
+
+.ifour {
+    margin-right: 70px;
 }
 
 footer {

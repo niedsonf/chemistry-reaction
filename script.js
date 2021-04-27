@@ -487,7 +487,7 @@ class BalanceScene extends Phaser.Scene {
 }
 
 var config = {
-    parent: 'game-container',
+    parent: 'game',
     dom: {createContainer: true},
     type: Phaser.AUTO,
     autoCenter: Phaser.Scale.CENTER_BOTH,
