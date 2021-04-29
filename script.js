@@ -8,12 +8,13 @@ class LoadingScene extends Phaser.Scene {
         /*for(var i =0;i<60;i++) {
 			this.load.image('background'+i, 'assets/background.jpg');
 		} //PARA TESTAR LOADING */
+        this.load.image('creditbg', 'assets/creditbg.jpg');
+        this.load.image('back', 'assets/back.png');
         this.load.image('reactcoins', 'assets/reactcoins.png')
         this.load.image('voltar', 'assets/voltar.png');
         this.load.image('menu', 'assets/menuscreen.jpg');
         this.load.image('jogar', 'assets/jogar.png');
         this.load.image('creditos', 'assets/creditos.png');
-        this.load.image('guia', 'assets/guia.png');
         this.load.image('redcross', 'assets/redcross.png');
         this.load.image('reacoes', 'assets/reacoes.png');
         this.load.image('list', 'assets/list.jpg');
@@ -91,9 +92,8 @@ class MenuScene extends Phaser.Scene {
             gameObject.alpha = 1;
         });
 
-        var jogar = createSprite(50, 250, 'jogar', this, 'GameScene');
-        var guia = createSprite(400, 250, 'guia', this, 'GuiaScene');
-        var creditos = createSprite(750, 250, 'creditos', this, 'CreditScene');
+        var jogar = createSprite(150, 250, 'jogar', this, 'GameScene');
+        var creditos = createSprite(650, 250, 'creditos', this, 'CreditScene');
 
         function createSprite(x, y, reference, scene, key){
             let newSprite = scene.add.sprite(x, y, reference)
@@ -107,31 +107,6 @@ class MenuScene extends Phaser.Scene {
     }
 }
 
-class GuiaScene extends Phaser.Scene {
-    
-    constructor(){
-        super('GuiaScene');
-    }
-
-    create(){
-
-        this.add.sprite(0, 0, 'voltar')
-            .setOrigin(0)
-            .setInteractive()
-            .on('pointerup', function(pointer){
-                this.scene.start('MenuScene')
-            }, this)
-
-        this.input.on('gameobjectover', function (pointer, gameObject) {
-            gameObject.alpha = 0.8;
-        });
-    
-        this.input.on('gameobjectout', function (pointer, gameObject) {
-            gameObject.alpha = 1;
-        });
-    }
-}
-
 class CreditScene extends Phaser.Scene {
 
     constructor(){
@@ -140,13 +115,6 @@ class CreditScene extends Phaser.Scene {
 
     create(){
 
-        this.add.sprite(0, 0, 'voltar')
-            .setOrigin(0)
-            .setInteractive()
-            .on('pointerup', function(pointer){
-                this.scene.start('MenuScene')
-            }, this)
-
         this.input.on('gameobjectover', function (pointer, gameObject) {
             gameObject.alpha = 0.8;
         });
@@ -154,6 +122,16 @@ class CreditScene extends Phaser.Scene {
         this.input.on('gameobjectout', function (pointer, gameObject) {
             gameObject.alpha = 1;
         });
+
+        this.add.image(0, 0, 'creditbg')
+            .setOrigin(0)
+
+        this.add.sprite(0, 455, 'voltar')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function(pointer){
+                this.scene.start('MenuScene')
+            }, this)
     }
 }
 
@@ -200,6 +178,11 @@ class GameScene extends Phaser.Scene {
         
         this.add.image(0, 0, 'bg')
             .setOrigin(0);
+
+        createSprite(0, 0, 'back', this)
+            .on('pointerup', function (pointer){
+                this.scene.start('MenuScene');
+            }, this)
 
         this.input.on('gameobjectover', function (pointer, gameObject) {
             gameObject.alpha = 0.8;
@@ -430,6 +413,13 @@ class BalanceScene extends Phaser.Scene {
         this.add.image(0, 0, 'balancebg')
             .setOrigin(0);
 
+        var back = this.add.sprite(0, 0, 'back')
+            .setOrigin(0)
+            .setInteractive()
+            .on('pointerup', function (pointer){
+                this.scene.start('GameScene')
+            }, this);
+
         this.add.image(posx[0], posy, data[1])
             .setOrigin(0);
 
@@ -441,7 +431,7 @@ class BalanceScene extends Phaser.Scene {
         var inputbox = this.add.image(50, 50, 'inputbox')
             .setOrigin(0);
 
-        var text = this.add.text(634, 297, "ESCOLHA OS\nREAGENTES", textStyle[0]);
+        var text = this.add.text(70, 200, "INSIRA OS\nCOEFICIENTES", textStyle[0]);
 
         var redcheck = this.add.sprite(310, 95, 'redcheck')
             .setOrigin(0)
@@ -466,8 +456,8 @@ class BalanceScene extends Phaser.Scene {
         }
 
         function wrongInput(){
-            text.setText('BALANCEAMENTO\nERRADO').setStyle({color: 'red'});
-            setTimeout(() => text.setText("ESCOLHA OS\nREAGENTES").setStyle(textStyle[0]), 1000);
+            text.setText('INCORRETO').setStyle({color: 'red'});
+            setTimeout(() => text.setText("INSIRA OS\nCOEFICIENTES").setStyle(textStyle[0]), 1500);
         }
 
         function generateInput(x, y, scene, selector){
@@ -494,7 +484,7 @@ var config = {
     width: 1100,
     height: 500,
     backgroundColor: '#4488aa',
-    scene: [LoadingScene, MenuScene, GuiaScene, CreditScene, GameScene, BalanceScene]
+    scene: [LoadingScene, MenuScene, CreditScene, GameScene, BalanceScene]
 };
 
 var game = new Phaser.Game(config);
