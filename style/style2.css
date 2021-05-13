@@ -1,0 +1,52 @@
+html, body, #jogar{
+    height: 100%;
+    font-family: helvetica, arial, sans-serif;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    text-align: center;
+    padding: 5px 10px;
+    margin-left: 25px;
+    color: white;
+    background: #8a2be2;
+    border-radius: 8px 2px 8px 2px;
+    transition: all 1s;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link:hover {
+    color: black;
+    background: #E84AD0;
+    border-radius: 20px 5px 20px 5px;
+    transition: all 1s;
+}
+
+#jogar {
+    background: linear-gradient(100deg, #8a2be2, #E84AD0);
+}
+
+#guia {
+    background: black;
+}
+
+#guia p {
+    text-align: justify;
+    color: #E84AD0;
+}
+
+.btn-outline-primary {
+    color: #E84AD0;
+    border-color: #E84AD0;
+}
+
+.btn-outline-primary:hover {
+    color: white;
+    border-color: #E84AD0;
+    background: #E84AD0;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-expand-lg .navbar-nav .nav-link {
+        margin-bottom: 5px;
+    }
+}
+
