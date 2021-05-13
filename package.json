@@ -1,8 +1,8 @@
 {
   "name": "chemistry-reaction",
   "version": "1.0.0",
-  "description": "didactic chemistry game",
-  "main": "index2.html",
+  "description": "",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
