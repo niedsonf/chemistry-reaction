@@ -483,7 +483,6 @@ var config = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: 1100,
     height: 500,
-    backgroundColor: '#4488aa',
     scene: [LoadingScene, MenuScene, CreditScene, GameScene, BalanceScene]
 };
 
