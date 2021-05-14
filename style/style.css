@@ -43,13 +43,15 @@ html, body, #jogar{
     background: #E84AD0;
 }
 
+footer span {
+    font-size: 0.9em;
+}
+
 @media (max-width: 991.98px) {
     .navbar-expand-lg .navbar-nav .nav-link {
         margin-bottom: 5px;
         margin-top: 2px;
     }
+
 }
 
-@media (max-width: 1199.98px) {
-    
-}
