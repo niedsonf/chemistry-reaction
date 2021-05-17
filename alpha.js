@@ -477,17 +477,14 @@ class BalanceScene extends Phaser.Scene {
 }
 
 var config = {
-    //parent: 'game',
     dom: { createContainer: true },
     type: Phaser.AUTO,
-    //autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
-    //width: 1100,
-    //height: 500,
     scale: {
-        parent: 'game',
+        parent: 'gameholder',
         width: 1100,
         height: 500,
-        mode: Phaser.Scale.FIT
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
     },
     scene: [LoadingScene, MenuScene, CreditScene, GameScene, BalanceScene]
 };

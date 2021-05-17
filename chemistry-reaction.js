@@ -43,10 +43,11 @@ class MainScene extends Phaser.Scene {
 var config = {
     type: Phaser.AUTO,
     scale: {
-        parent: 'game',
+        parent: 'gameholder',
         width: 900,
         height: 500,
-        mode: Phaser.Scale.FIT
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
     },
     scene: [MainScene]
 };
