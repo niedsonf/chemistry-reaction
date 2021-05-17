@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.0.0",
-    "phaser": "^3.52.0",
+    "phaser": "^3.54.0",
     "phaser3-rex-plugins": "^1.1.44",
     "sass": "^1.32.13"
   }
