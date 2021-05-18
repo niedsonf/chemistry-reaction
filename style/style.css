@@ -1,6 +1,10 @@
-html, body, #jogar{
+html, body, #jogar {
     height: 100%;
     font-family: helvetica, arial, sans-serif;
+}
+
+header {
+    margin-bottom: 80px;
 }
 
 .navbar-expand-lg .navbar-nav .nav-link {

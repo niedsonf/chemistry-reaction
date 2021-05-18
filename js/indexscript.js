@@ -10,15 +10,16 @@ function setGameVersion(btnId) {
         document.getElementById('game').appendChild(gameholder)
     }
 
+    
     if (btnId == 'alpha') {
         document.getElementById('alpha').className = 'btn btn-dark disabled'
         document.getElementById('atual').className = 'btn btn-dark'
-        createInstance('alpha.js')
+        createInstance('./js/alpha.js')
     } 
     if(btnId == 'atual') {
         document.getElementById('alpha').className = 'btn btn-dark'
         document.getElementById('atual').className = 'btn btn-dark disabled'
-        createInstance('chemistry-reaction.js')
+        createInstance("./js/chemistry-reaction.js")
     }
 }
 

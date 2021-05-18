@@ -4,10 +4,10 @@ class MainScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.spritesheet('elements', 'assets/elements.png', {
+        this.load.spritesheet('elements', '../assets/elements.png', {
             frameWidth: 60, frameHeight: 90
         })
-        this.load.spritesheet('mix', 'assets/mix.png', {
+        this.load.spritesheet('mix', '../assets/mix.png', {
             frameWidth: 200, frameHeight: 300
         })
     }
