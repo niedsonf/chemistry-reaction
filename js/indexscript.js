@@ -10,7 +10,6 @@ function setGameVersion(btnId) {
         document.getElementById('game').appendChild(gameholder)
     }
 
-    
     if (btnId == 'alpha') {
         document.getElementById('alpha').className = 'btn btn-dark disabled'
         document.getElementById('atual').className = 'btn btn-dark'

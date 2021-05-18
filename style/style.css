@@ -3,10 +3,6 @@ html, body, #jogar {
     font-family: helvetica, arial, sans-serif;
 }
 
-header {
-    margin-bottom: 80px;
-}
-
 .navbar-expand-lg .navbar-nav .nav-link {
     text-align: center;
     padding: 5px 10px;
