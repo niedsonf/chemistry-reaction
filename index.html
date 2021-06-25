@@ -15,7 +15,7 @@
 
     <link rel="icon" href="./assets/droplet-half.svg">
 
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.54.0/dist/phaser.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
 
     <script src="js/indexscript.js"></script>
 
@@ -53,8 +53,8 @@
     </header>
 
     <section id="jogar" class="d-flex align-self-center pt-5">
-        <div class="container pt-5">
-            <div class="input-group mb-2 justify-content-center">
+        <div class="container pt-3">
+            <div class="input-group mb-2 justify-content-center pt-3">
                 <button onclick="setGameVersion('alpha')" class="btn btn-dark disabled" id="alpha">Alpha</button>
                 <button onclick="setGameVersion('atual')" class="btn btn-dark" id="atual">Atual</button>
             </div>
@@ -110,13 +110,33 @@
         </div>
     </footer>
 
-    <script>
-        alert("Olá, agora é possível acompanhar o reworking do Chemistry Reaction selecionando a versão acima do jogo. Há uma falha de renderização ao alternar as versões mais de uma vez, nesse caso apenas dê refresh na página, estamos trabalhando nisso!")
-    </script>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Bem-vindo!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Olá, agora é possível acompanhar o reworking do Chemistry Reaction selecionando a versão "Atual"
+                    acima da tela do jogo. Há uma falha de renderização ao alternar as versões mais de uma vez, nesse
+                    caso apenas dê refresh na página.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
+    <script>        
+        var alertModal = new bootstrap.Modal(document.getElementById('staticBackdrop'))
+        alertModal.show()</script>
 </body>
 
 </html>
