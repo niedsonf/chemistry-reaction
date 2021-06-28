@@ -490,3 +490,50 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+
+/*class MainScene extends Phaser.Scene {
+
+    constructor() {
+        super("MainScene")
+    }
+
+    preload() {
+        this.load.spritesheet('elements', './assets/elements.png', {
+            frameWidth: 60, frameHeight: 90
+        })
+        this.load.spritesheet('mix', './assets/mix.png', {
+            frameWidth: 200, frameHeight: 300
+        })
+    }
+
+    create() {
+
+        const TEXT_STYLE =
+        {
+            fontFamily: 'Arial',
+            fontSize: 22,
+            color: 'white',
+        }
+
+        const MIXER = this.add.sprite(700, 300, 'mix', 15)
+    
+        const FECL3 = createElement(this, 30, 30, 1, 'FeCl₃')
+        const CUSO4 = createElement(this, 140, 30, 2, 'CuSO₄')
+        const AGNO3 = createElement(this, 30, 190, 0, 'AgNO₃')
+        const NA2CO3 = createElement(this, 140, 190, 0, 'Na₂CO₃')
+        const K2SO4 = createElement(this, 30, 350, 0, 'K₂SO₄')
+        const NAOH = createElement(this, 140, 350, 0, 'NaOH')
+        const CACL2 = createElement(this, 250, 350, 0, 'CaCl₂')
+
+        function createElement(scene, x, y, frame, elem) {
+            let newElement = scene.add.sprite(x, y, 'elements', frame)
+                .setOrigin(0)
+                .setInteractive()
+            scene.add.text(x, y+90, elem, TEXT_STYLE)
+            return newElement
+        }
+
+        
+
+    }
+}*/
