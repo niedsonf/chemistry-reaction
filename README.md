@@ -5,7 +5,8 @@ Are you a teacher? student? or just a curious one?
 <a href="https://niedsonf.github.io/chemistry-reaction/">Try now!</a>
 
 Made with:
+- PHASER3
+- BOOTSTRAP
 - HTML5
 - CSS3
 - JS
-- PHASER3
